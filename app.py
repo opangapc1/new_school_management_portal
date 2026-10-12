@@ -56,7 +56,7 @@ class AppRelease(db.Model):
     def to_dict(self):
         return {
             "version": self.version,
-            "download_url": f"https://student-portal-yllr.onrender.com/download/app/{self.filename}",
+            "download_url": url_for("download_app_file", filename=self.filename, _external=True),
             "changelog": self.changelog or "Bug fixes and performance improvements."
         }
 
@@ -190,7 +190,7 @@ def api_app_version():
     return jsonify({
         "status": "success",
         "latest_version": latest.version,
-        "download_url": f"https://student-portal-yllr.onrender.com/download/app/{latest.filename}",
+        "download_url": url_for("download_app_file", filename=latest.filename, _external=True),
         "changelog": latest.changelog
     }), 200
 
